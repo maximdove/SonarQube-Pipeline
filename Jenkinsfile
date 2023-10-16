@@ -1,9 +1,19 @@
 pipeline {
     agent any
-    triggers {
-        githubPush branch: 'main'
-    }
+
     stages {
+        stage('Check for Merge Commit') {
+            steps {
+                script {
+                    def isMergeCommit = sh(script: 'git log -1 --pretty=%B | grep "Merge branch"', returnStatus: true) == 0
+                    if (!isMergeCommit) {
+                        currentBuild.result = 'ABORTED'
+                        error('This is not a merge commit. Aborting the build.')
+                    }
+                }
+            }
+        }
+
         stage('Clone Repository') {
             steps {
                 checkout scm
