@@ -11,8 +11,8 @@ pipeline {
         stage('Static Code Analysis') {
             steps {
                 script {
-                    def scannerHome = tool 'SonarQube Scanner';
-                    withSonarQubeEnv('SonarQube') {
+                    def scannerHome = tool 'SonarQube-pipeline';
+                    withSonarQubeEnv('SonarQube-pipeline') {
                         sh "${scannerHome}/bin/sonar-scanner"
                     }
                 }
