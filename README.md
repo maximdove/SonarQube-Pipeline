@@ -1,2 +1,0 @@
-# SonarQube-Pipeline
-SonarQube-Pipeline
