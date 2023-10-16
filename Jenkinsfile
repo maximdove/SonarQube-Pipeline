@@ -5,7 +5,7 @@ pipeline {
         stage('Check for Merge Commit') {
             steps {
                 script {
-                    def isMergeCommit = sh(script: 'git log -1 --pretty=%B | grep "Merge branch"', returnStatus: true) == 0
+                    def isMergeCommit = sh(script: 'git rev-parse HEAD^2', returnStatus: true) == 0
                     if (!isMergeCommit) {
                         currentBuild.result = 'ABORTED'
                         error('This is not a merge commit. Aborting the build.')
