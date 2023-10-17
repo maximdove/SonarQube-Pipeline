@@ -42,7 +42,7 @@ pipeline {
         stage('Tag Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
                         def app = docker.image("my-app:${env.BUILD_ID}")
                         app.push('latest')
                         app.push("${env.BUILD_ID}")
