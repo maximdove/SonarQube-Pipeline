@@ -34,7 +34,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def app = docker.build("my-app:${env.BUILD_ID}")
+                    def app = docker.build("maximdove/my-app:${env.BUILD_ID}")
                 }
             }
         }
@@ -43,7 +43,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-                        def app = docker.image("my-app:${env.BUILD_ID}")
+                        def app = docker.image("maximdove/my-app:${env.BUILD_ID}")
                         app.push('latest')
                         app.push("${env.BUILD_ID}")
                     }
